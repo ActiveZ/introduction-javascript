@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form name="myForm" action="" onsubmit="return validateForm()" method="post">
+        Nom: <input type="text" name="fname">
+        Prénom: <input type="text" name="lname">
+        Date de naissance: <input type="date" name="dateBirth" id="">
+        <input type="submit" value="Submit">
+    </form>
+
+    <p style="background-color: red;" id="error"></p>
+</body>
+
+<script>
+    document.getElementById("error").innerHTML = "";
+
+    function validateForm() {
+        const x = document.forms["myForm"]
+        let msg = "";
+
+        if (x["fname"].value == "") {
+            msg += 'Le champ "Nom" doit être renseigné <br>';
+        }
+
+        if (x["lname"].value == "") {
+            msg += 'Le champ "Prénom" doit être renseigné <br>';
+        }
+
+        if (x["dateBirth"].value == "") {
+            msg += 'Le champ "Date de naissance" doit être renseigné <br>';
+        }
+
+        document.getElementById("error").innerHTML = msg;
+        return msg == "";
+    }
+</script>
+</head>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" name="" id="a">
+    <input type="text" name="" id="b">
+
+    <select name="" id="operateur">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+
+    <button id="btCalcul">calcul</button>
+    <p id="result">Résultat:</p>
+
+    <script>
+        // exercice opération
+        document.getElementById("btCalcul").addEventListener("click", () => {
+            let result = "";
+            const a = Number(document.querySelector("#a").value)
+            const b = Number(document.querySelector("#b").value)
+
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById("result").innerHTML = "Vous devez saisir un nombre"
+                document.getElementById("result").style.backgroundColor = "red";
+                return;
+            }
+            document.getElementById("result").style.backgroundColor = null;
+
+            switch (document.getElementById("operateur").value) {
+                case "+":
+                    result = "Le résultat de l'addition est: " + (a + b);
+                    break;
+                case "-":
+                    result = "Le résultat de la soustraction est: " + (a - b);
+                    break;
+                case "*":
+                    result = "Le résultat de la multiplication est: " + (a * b);
+                    break;
+                case "/":
+                    result = b == 0 ? "Erreur: division par zéro !" : "Le résultat de la division est: " + (a / b);
+                    break;
+            }
+
+            document.getElementById("result").innerHTML = result;
+        });
+    </script>
+</body>
+
+</html>
