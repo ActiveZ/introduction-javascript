@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
@@ -14,7 +14,8 @@
         Nom: <input type="text" name="fname">
         Prénom: <input type="text" name="lname">
         Date de naissance: <input type="date" name="dateBirth" id="">
-        <input type="submit" value="Submit">
+        <input type="reset" value="Annuler">
+        <input type="submit" value="Envoyer">
     </form>
 
     <p style="background-color: red;" id="error"></p>
@@ -40,8 +41,10 @@
         }
 
         document.getElementById("error").innerHTML = msg;
-        return msg == "";
+        // return msg == "";
+        return false; // empeche l'envoi du formulaire quelque le résultat de la validation
     }
+
 </script>
 </head>
 

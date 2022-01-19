@@ -37,7 +37,8 @@
             }
             document.getElementById("result").style.backgroundColor = null;
 
-            switch (document.getElementById("operateur").value) {
+            
+switch (document.getElementById("operateur").value) {
                 case "+":
                     result = "Le résultat de l'addition est: " + (a + b);
                     break;
@@ -51,7 +52,6 @@
                     result = b == 0 ? "Erreur: division par zéro !" : "Le résultat de la division est: " + (a / b);
                     break;
             }
-
             document.getElementById("result").innerHTML = result;
         });
     </script>
