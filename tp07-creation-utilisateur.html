@@ -80,6 +80,8 @@
         const url = "https://digicode.cleverapps.io/utilisateurs"
 
         function displayArray() {
+            const tbody = document.getElementById("tbody")
+            
             fetch(url)
                 .then(resp => resp.json())
                 .then(data => {
