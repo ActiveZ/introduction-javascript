@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>Date naissance</td>
+                <td>Lieu naissance</td>
+                <td>Département naissance</td>
+                <td>Numéro rue</td>
+                <td>Libellé rue</td>
+                <td>Code postal</td>
+                <td>Ville</td>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+
+    <fieldset>
+        <caption>FORMULAIRE D'AJOUT</caption>
+        <form>
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom</label>
+                <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom de famille">
+            </div>
+            <div class="mb-3">
+                <label for="prenom" class="form-label">Prénom</label>
+                <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prénom">
+            </div>
+            <div class="mb-3">
+                <label for="dateNaissance" class="form-label">Date de naissance</label>
+                <input type="date" name="dateNaissance" id="dateNaissance" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="lieuNaissance" class="form-label">Lieu de naissance</label>
+                <input type="text" name="lieuNaissance" id="lieuNaissance" class="form-control"
+                    placeholder="Lieu de naissance">
+            </div>
+            <div class="mb-3">
+                <label for="departementNaissance" class="form-label">Département</label>
+                <input type="text" name="departementNaissance" id="departementNaissance" class="form-control"
+                    placeholder="Département">
+            </div>
+            <div class="mb-3">
+                <label for="numeroRue" class="form-label">Numéro de rue</label>
+                <input type="text" name="numeroRue" id="numeroRue" class="form-control" placeholder="Numéro de rue">
+            </div>
+            <div class="mb-3">
+                <label for="libelleRue" class="form-label">Libellé de rue</label>
+                <input type="text" name="libelleRue" id="libelleRue" class="form-control" placeholder="Libellé de rue">
+            </div>
+            <div class="mb-3">
+                <label for="codePostal" class="form-label">Code postal</label>
+                <input type="text" name="codePostal" id="codePostal" class="form-control" placeholder="Code postal">
+            </div>
+            <div class="mb-3">
+                <label for="ville" class="form-label">Ville</label>
+                <input type="text" name="ville" id="ville" class="form-control" placeholder="Ville">
+            </div>
+            <div class="mb-3">
+                <input type="button" class="btn btn-primary" onclick="valider()" value="Envoyer">
+            </div>
+        </form>
+    </fieldset>
+
+    <script>
+        const url = "https://digicode.cleverapps.io/utilisateurs"
+
+        function displayArray() {
+            fetch(url)
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log("data", data)
+
+                    data.map(d => {
+
+                        let tr = document.createElement('tr');
+
+                        let tdNom = document.createElement('td');
+                        tdNom.innerHTML = d.nom
+                        tr.appendChild(tdNom)
+
+                        let tdPrenom = document.createElement('td');
+                        tdPrenom.innerHTML = d.prenom
+                        tr.appendChild(tdPrenom)
+
+                        let tdDateNaissance = document.createElement('td');
+                        tdDateNaissance.innerHTML = d.dateNaissance
+                        tr.appendChild(tdDateNaissance)
+
+                        let tdLieuNaissance = document.createElement('td');
+                        tdLieuNaissance.innerHTML = d.lieuNaissance
+                        tr.appendChild(tdLieuNaissance)
+
+                        let tdDepartementNaissance = document.createElement('td');
+                        tdDepartementNaissance.innerHTML = d.departementNaissance
+                        tr.appendChild(tdDepartementNaissance)
+
+                        let tdNumRue = document.createElement('td');
+                        tdNumRue.innerHTML = d.numeroRue
+                        tr.appendChild(tdNumRue)
+
+                        let tdLibelleRue = document.createElement('td');
+                        tdLibelleRue.innerHTML = d.libelleRue
+                        tr.appendChild(tdLibelleRue)
+
+                        let tdCodePostal = document.createElement('td');
+                        tdCodePostal.innerHTML = d.codePostal
+                        tr.appendChild(tdCodePostal)
+
+                        let tdVille = document.createElement('td');
+                        tdVille.innerHTML = d.ville
+                        tr.appendChild(tdVille)
+
+                        tbody.appendChild(tr);
+                    })
+                })
+
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+
+
+        function valider() {
+            let data = {}
+            data.nom = document.querySelector("#nom").value
+            data.prenom = document.querySelector("#prenom").value
+            data.dateNaissance = document.querySelector("#dateNaissance").value
+            data.lieuNaissance = document.querySelector("#lieuNaissance").value
+            data.departementNaissance = document.querySelector("#departementNaissance").value
+            data.numeroRue = document.querySelector("#numeroRue").value
+            data.libelleRue = document.querySelector("#libelleRue").value
+            data.codePostal = document.querySelector("#codePostal").value
+            data.ville = document.querySelector("#ville").value
+
+            fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.text())
+                .then(text => console.log(text))
+                .then(() => displayArray()) //update affichage
+                .catch(err => console.log(err))
+        }
+
+        /////////// MAIN //////////////
+        displayArray()
+    </script>
+</body>
+
+</html>
