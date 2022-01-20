@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1 id="titre"></h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Température</th>
+                <th>Description</th>
+                <th>Pression</th>
+                <th>Vent</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <script>
+        const url =
+            "https://api.openweathermap.org/data/2.5/weather?q=Nantes&lang=fr&units=metric&appid=e7600d82a734460a8fc05666f3f03c12"
+        const tbody = document.getElementById("tbody")
+
+        fetch(url)
+            .then(resp => resp.json())
+
+            .then(data => {
+                console.log("data", data)
+
+                document.getElementById("titre").innerHTML = "Météo à " + data.name
+
+                let tr = document.createElement("tr")
+
+                let tdHeure = document.createElement("td")
+                tdHeure.innerHTML = formatDate(data.dt)
+                tr.appendChild(tdHeure)
+
+                let tdTemp = document.createElement("td")
+                tdTemp.innerHTML = data.main.temp + "° C"
+                tr.appendChild(tdTemp)
+
+                let tdDesc = document.createElement("td")
+                tdDesc.innerHTML = data.weather[0].description + " "
+                let img = document.createElement('img');
+                img.src = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
+                tdDesc.appendChild(img)
+                tr.appendChild(tdDesc)
+
+
+                let tdPression = document.createElement("td")
+                tdPression.innerHTML = data.main.pressure + " hPa"
+                tr.appendChild(tdPression)
+
+                let tdVent = document.createElement("td")
+                tdVent.innerHTML = data.wind.speed + " m/s" + " (" + data.wind.speed * 3.6 +
+                    " km/h) - direction: " + data.wind.deg + "°"
+                tr.appendChild(tdVent)
+
+                tbody.appendChild(tr)
+            })
+
+            .catch(err => console.log(err))
+
+        function formatDate(dt) {
+            const month = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre",
+                "octobre", "novembre", "décembre"]
+            const date = new Date(dt * 1000)
+
+            let str = "Le " + date.getDate() + " " + month[date.getMonth()] + " " + date.getFullYear()
+            str += " à " + date.getHours() + "h" + date.getMinutes()
+            return str
+        }
+    </script>
+
+</body>
+
+</html>

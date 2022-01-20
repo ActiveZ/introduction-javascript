@@ -25,7 +25,6 @@
 
 
 <script>
-
     const url = "https://digicode.cleverapps.io/json/pays/pollution"
     const tbody = document.getElementById("tbody")
 
@@ -58,8 +57,8 @@
                 tbody.appendChild(tr);
             })
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch(err => {
+            console.log(err);
         });
 </script>
 
