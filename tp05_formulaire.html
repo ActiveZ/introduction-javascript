@@ -10,7 +10,7 @@
 
 <body>
 
-    <form name="myForm" action="" onsubmit="return validateForm()" method="post">
+    <form name="myForm" action="" onsubmit="validateForm()" method="post">
         Nom: <input type="text" name="fname">
         Prénom: <input type="text" name="lname">
         Date de naissance: <input type="date" name="dateBirth" id="">
@@ -41,10 +41,9 @@
         }
 
         document.getElementById("error").innerHTML = msg;
-        // return msg == "";
-        return false; // empeche l'envoi du formulaire quelque le résultat de la validation
+        // return msg == ""; // permet le blocage de l'envoi du form si invalide
+        return false; // empeche l'envoi du formulaire quelque le résultat de la validation (equivaut à event.preventDefault)
     }
-
 </script>
 </head>
 
